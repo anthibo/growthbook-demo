@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": false,
+        "amount": 30
+    },
+    "auditLog": "/home/anthibo/Projects/growthbook-demo/src/logs/debug/.ca2025983f8b8cc42f1e006875d98cf919bbb15f-audit.json",
+    "files": [
+        {
+            "date": 1669807410130,
+            "name": "/home/anthibo/Projects/growthbook-demo/src/logs/debug/2022-11-30.log",
+            "hash": "5d90a6456eef69e9e8693d93c644c8b106a9973ad6d3202a27337c6c951e94d2"
+        }
+    ],
+    "hashType": "sha256"
+}
