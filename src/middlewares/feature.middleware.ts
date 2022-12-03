@@ -4,6 +4,7 @@ import { RequestWithGB } from '@interfaces/auth.interface';
 import { getGBInstance } from '@/utils/featureFlag';
 import { Attributes } from '@growthbook/growthbook';
 
+//TODO: use mixpanel as a data source for analytics
 const requestGBMiddleware = async (req: RequestWithGB, res: Response, next: NextFunction) => {
   try {
     const attributes: Attributes = {
@@ -11,7 +12,7 @@ const requestGBMiddleware = async (req: RequestWithGB, res: Response, next: Next
       country: req.header('country'),
       os: req.header('os'),
     };
-    req.gb = getGBInstance(attributes);
+    req.gb = await getGBInstance(attributes);
     next();
   } catch (error) {
     next(new HttpException(500, error));

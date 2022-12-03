@@ -3,7 +3,7 @@ import { CreateUserDto } from '@dtos/users.dto';
 import { Routes } from '@interfaces/routes.interface';
 import validationMiddleware from '@middlewares/validation.middleware';
 import FeatureController from '@/controllers/feature.controller';
-import requestGBMiddleware from '@/middlewares/analytic.middleware';
+import requestGBMiddleware from '@/middlewares/feature.middleware';
 
 class FeatureRoute implements Routes {
   public path = '/features';

@@ -9,7 +9,6 @@ class FeatureController {
     try {
       const { gb } = req;
       console.log(gb.feature('feature-1'));
-      console.log(gb.evalFeature('feature-1'));
       if (gb.isOn('feature-1')) {
         res.status(200).json({ data: 'feature-1 is enabled', message: 'feature1' });
         return;
