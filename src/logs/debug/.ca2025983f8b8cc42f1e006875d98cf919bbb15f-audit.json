@@ -9,6 +9,11 @@
             "date": 1669807410130,
             "name": "/home/anthibo/Projects/growthbook-demo/src/logs/debug/2022-11-30.log",
             "hash": "5d90a6456eef69e9e8693d93c644c8b106a9973ad6d3202a27337c6c951e94d2"
+        },
+        {
+            "date": 1670141301048,
+            "name": "/home/anthibo/Projects/growthbook-demo/src/logs/debug/2022-12-04.log",
+            "hash": "3df05c1e480e16bf017f1565d1b8011fd9a09606002063bfd9c793f6064c8ffc"
         }
     ],
     "hashType": "sha256"

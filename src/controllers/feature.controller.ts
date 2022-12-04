@@ -8,7 +8,6 @@ class FeatureController {
   public feature1 = async (req: RequestWithGB, res: Response, next: NextFunction): Promise<void> => {
     try {
       const { gb } = req;
-      console.log(gb.feature('feature-1'));
       if (gb.isOn('feature-1')) {
         res.status(200).json({ data: 'feature-1 is enabled', message: 'feature1' });
         return;
@@ -22,9 +21,16 @@ class FeatureController {
 
   public feature2 = async (req: RequestWithGB, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const result = await this.featureService.doFeature2();
+      const { gb } = req;
 
-      res.status(200).json({ data: result, message: 'feature2' });
+      const featureData = gb.evalFeature('feature-2');
+      const experiment = gb.run({
+        key: featureData.experiment.key,
+        variations: featureData.experiment.variations,
+        weights: featureData.experiment.weights,
+        hashAttribute: featureData.experiment.hashAttribute,
+      });
+      res.status(200).json({ data: experiment.value, message: 'feature2' });
     } catch (error) {
       next(error);
     }
