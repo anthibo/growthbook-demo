@@ -6,7 +6,6 @@ import { Attributes } from '@growthbook/growthbook';
 import mixpanel from '@/utils/mixpanel';
 import { MP_TOKEN } from '@/config';
 
-//TODO: use mixpanel as a data source for analytics
 const handleFeaturesAnalyticsMiddleware = async (req: RequestWithGB, res: Response, next: NextFunction) => {
   try {
     const attributes: Attributes = {
