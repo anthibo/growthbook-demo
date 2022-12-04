@@ -1,32 +1,29 @@
+import { GB_FEATURES_API, MP_TOKEN } from '@/config';
 import { Attributes, GrowthBook, FeatureDefinition } from '@growthbook/growthbook';
+import axios from 'axios';
+import mixpanel from './mixpanel';
 
 type Features = Record<string, FeatureDefinition>;
+type GBSDKFeaturesResponse = { status: number; features: Features };
 
-const FEATURES_FLAG: Features = {
-  'feature-1': {
-    defaultValue: true,
-    rules: [
-    //   { force: true, coverage: 0.5, hashAttribute: 'os' },
-      { variations: [true, false], coverage: 0.5, weights: [0.5, 0.5], key: 'feature-1', hashAttribute: 'deviceId' },
-    //   { condition: { country: 'IL' }, force: false },
-    ],
-  },
+const fetchFeatures = async (): Promise<Features> => {
+  const { data } = await axios.get<GBSDKFeaturesResponse>(GB_FEATURES_API);
+  return data.features;
 };
 // Create a GrowthBook instance
-export function getGBInstance(attributes: Attributes) {
+export async function createGB(attributes: Attributes) {
+  const features: Features = await fetchFeatures();
   const growthbook = new GrowthBook({
-    // enableDevMode: true allows you to use the Chrome DevTools Extension to test/debug.
     enableDevMode: true,
     attributes: attributes,
-    features: FEATURES_FLAG,
+    features: features,
     trackingCallback: (experiment, result) => {
-      console.log({
-        experimentId: experiment.key,
-        variationId: result.variationId,
+      mixpanel.track('$experiment_started', {
+        'Experiment name': experiment.key,
+        'Variant name': result.variationId,
+        distinct_id: attributes.deviceId,
+        $source: 'growthbook',
       });
-    },
-    onFeatureUsage: (featureKey, result) => {
-      console.log('feature', featureKey, 'has value', result.value);
     },
   });
 
